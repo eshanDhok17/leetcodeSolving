@@ -8,16 +8,22 @@ class Solution {
   private:
     void dfs(int row, int col, vector<vector<int>> &vis, vector<vector<char>> &grid){
         vis[row][col] = 1;
-        int n = grid.size(), m = grid[0].size();
-        for(int i=-1; i<=1; i++){
-            for(int j=-1; j<=1; j++) {
-                int nrow = row + i, ncol = col + j;
-                if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && vis[nrow][ncol] == 0 && grid[nrow][ncol] == '1'){
-                    dfs(nrow, ncol, vis, grid);
-                }
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        int delRow[] = {-1,-1,0,1,1,1,0,-1};
+        int delCol[] = {0,1,1,1,0,-1,-1,-1};
+        
+        for(int i=0; i<8; i++){
+            int nrow = row + delRow[i];
+            int ncol = col + delCol[i];
+            
+            if(nrow >= 0 && nrow < n &&
+            ncol >= 0 && ncol < m &&
+            vis[nrow][ncol] == 0 && grid[nrow][ncol] == '1'){
+                dfs(nrow, ncol, vis, grid);
             }
         }
-        return ;
     }
     
   public:
