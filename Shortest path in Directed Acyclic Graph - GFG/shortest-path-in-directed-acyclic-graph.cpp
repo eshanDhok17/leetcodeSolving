@@ -6,52 +6,59 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-class Solution {
+class Solution 
+{
   public:
-    void topoSort(int node, bool vis[], vector<pair<int, int>> adj[], stack<int> &st) {
-        vis[node] = true;
-        for(auto &it : adj[node]) {
-            int v = it.first;
-            if(!vis[v]) {
-                topoSort(v, vis, adj, st);
-            }
-        }
-        st.push(node);
-        return ;
-        
-    }
-    vector<int> shortestPath(int n,int m, vector<vector<int>>& edges){
+  void toposort(int node, int vis[], vector<pair<int, int>> adj[], stack<int> &st)
+  {
+      vis[node] = 1;
+      for(auto it : adj[node])
+      {
+          int v = it.first;
+          if(!vis[v])
+          {
+              toposort(v, vis, adj, st);
+          }
+      }
+      st.push(node);
+      return ;
+  }
+     vector<int> shortestPath(int n,int m, vector<vector<int>>& edges)
+     {
         // code here
         vector<pair<int, int>> adj[n];
-        for(int i=0; i<m; i++) {
-            int u = edges[i][0], v = edges[i][1], wt = edges[i][2];
+        for(int i=0; i<m; i++) 
+        {
+            int u = edges[i][0],
+                v = edges[i][1],
+                wt = edges[i][2];
             adj[u].push_back({v, wt});
         }
+        int vis[n] = {0};
         stack<int> st;
-        bool vis[n] = {false};
-        for(int i=0; i<n; i++) {
-            if(!vis[i]) {
-                topoSort(i, vis, adj, st);
+        for(int i=0; i<n; i++)
+        {
+            if(!vis[i]) 
+            {
+                toposort(i, vis, adj, st);
             }
         }
-        
-        vector<int> dist(n, 1e9);
-        dist[0] = 0;
-        while(!st.empty()) {
+        vector<int> dis(n, 1e9);
+        dis[0] = 0;
+        while(!st.empty())
+        {
             int node = st.top(); st.pop();
-            for(auto &it : adj[node]) {
-                int v = it.first;
-                if(dist[node] + it.second < dist[v]) {
-                    dist[v] = dist[node] + it.second;
+            for(auto it : adj[node]) 
+            {
+                int wt = it.second, adjNode = it.first;
+                if(dis[node] + wt < dis[adjNode]) 
+                {
+                    dis[adjNode] = wt + dis[node];
                 }
             }
         }
-        for(int i=0; i<n; i++) {
-            if(dist[i] == 1e9) {
-                dist[i] = -1;
-            }
-        }
-        return dist;
+        for(int i=0; i<n; i++)if(dis[i]==1e9)dis[i]=-1;
+        return dis;
     }
 };
 
