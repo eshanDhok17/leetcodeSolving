@@ -10,19 +10,28 @@ class Solution{
     // Function to find the trapped water between the blocks.
     public:
     long long trappingWater(int arr[], int n) {
-        vector<int> l(n), r(n);
-        for(int i=1; i<n; i++) {
-            l[i] = max(l[i-1], arr[i-1]);
+        #define ll long long
+        if(n < 3) return 0;
+        ll ml = arr[0], mr = arr[n-1];
+        ll l = 1, r = n-2;
+        ll ans = 0;
+        while(l <= r) {
+            if(ml < mr) {
+                if(ml < arr[l]) {
+                    ml = arr[l];
+                }
+                ans += ml - arr[l];
+                l++;
+            }
+            else {
+                if(mr < arr[r]) {
+                    mr = arr[r];
+                }
+                ans += mr - arr[r];
+                r--;
+            }
         }
-        for(long long i=n-2; i>=0; i--) {
-            r[i] = max(r[i+1], arr[i+1]);
-        }
-        long long res = 0;
-        for(long long i=0; i<n; i++) {
-            long long waterLevel = min(l[i], r[i]);
-            if(waterLevel >= arr[i]) res += waterLevel - arr[i];
-        }
-        return res;
+        return ans;
     }
 };
 
