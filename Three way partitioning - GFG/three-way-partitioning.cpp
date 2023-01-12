@@ -12,9 +12,27 @@ class Solution{
 public:
     //Function to partition the array around the range such 
     //that array is divided into three parts.
-    void threeWayPartition(vector<int>& array,int a, int b)
+    // time taken = 4.67
+    void threeWayPartition(vector<int>& arr,int a, int b)
     {
-        sort(array.begin(), array.end());
+        int n = arr.size();
+        int s = 0, j = 0, e = n-1;
+        while(j <= e) {
+            if(arr[j] < a) {
+                swap(arr[j], arr[s]);
+                s++; j++;
+            }
+            else if(arr[j] > b) {
+                swap(arr[j], arr[e]);
+                e--;
+            }
+            else {
+                j++;
+            }
+            
+        }
+        // for(auto i : arr) cout << i << ' ';
+        // cout << endl;
     }
 };
 
