@@ -1,5 +1,10 @@
 class Solution {
 public:
+    /*
+        i thought i must fill positive elements to right as i encounter them
+        which will preserve positive element order and we dont care about zero.
+    */
+    
     void moveZeroes(vector<int>& nums) {
         if(nums.size() == 1) {
             return ;
