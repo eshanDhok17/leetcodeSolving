@@ -2,7 +2,7 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) {
         int num = nums[0];
-        for(int i=1; i<nums.size(); i++) {
+        for(int i=1; i<size(nums); i++) {
             num ^= nums[i];
         }
         return num;
