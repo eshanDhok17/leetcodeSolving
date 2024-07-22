@@ -6,6 +6,7 @@ public:
             lsf=min(lsf,p[i]);
             res=max(res,p[i]-lsf);
         }
+        p.clear();
         return res;
     }
 };
